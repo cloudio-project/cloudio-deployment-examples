@@ -38,11 +38,8 @@ Using the command `start.sh` an cloud.iO application stack in a stopped state ca
 
 The command `down.sh` stops and deletes all containers of the cloud.iO application stack and deletes all keys, certificates and keystores/truststores. 
 
-<aside class="warning">
-Use with caution!
-
-The command `down.sh` will delete **all data** including users, history data, access rights, encpoint configuration, keys and certificates. This means that Endpoints configured for this node will not be able to connect anymore.
-</aside>
+> **Use with caution!**  
+> The command `down.sh` will delete **all data** including users, history data, access rights, encpoint configuration, keys and certificates. This means that Endpoints configured for this node will not be able to connect anymore.
 
 The typical use of this command would be to cleanup everything after a test run.
 
