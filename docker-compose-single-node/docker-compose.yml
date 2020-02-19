@@ -31,7 +31,5 @@ services:
         spring.rabbitmq.ssl.key-store: 'file:/etc/cloudio/cloudio_services.p12'
         spring.rabbitmq.ssl.trust-store: 'file:/etc/cloudio/ca.jks'
         spring.rabbitmq.ssl.trust-store-password: 'cloudioDEV'
-        spring.influx: 'http://influx:8086'
-        spring.data.mongodb.host: 'mongo'
         cloudio.cert-manager.caCertificate: ${CA_CERT}
         cloudio.cert-manager.caPrivateKey: ${CA_KEY}
