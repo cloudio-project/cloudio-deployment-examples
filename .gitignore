@@ -11,4 +11,8 @@
 *.cer
 *jks
 
+### hidden files ###
+.*
+!/.gitignore
+
 # End of https://www.gitignore.io/api/certificates
