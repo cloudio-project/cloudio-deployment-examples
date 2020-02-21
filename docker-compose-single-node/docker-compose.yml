@@ -28,14 +28,8 @@ services:
       volumes:
       - "./certificates:/etc/cloudio"
       environment:
-        spring.rabbitmq.username: 'admin'
-        spring.rabbitmq.password: ${ADMIN_PASSWORD}
-        spring.rabbitmq.host: 'rabbit' 
         spring.rabbitmq.ssl.key-store: 'file:/etc/cloudio/cloudio_services.p12'
         spring.rabbitmq.ssl.trust-store: 'file:/etc/cloudio/ca.jks'
         spring.rabbitmq.ssl.trust-store-password: 'cloudioDEV'
         cloudio.cert-manager.caCertificate: ${CA_CERT}
         cloudio.cert-manager.caPrivateKey: ${CA_KEY}
-        spring.data.mongodb.host: 'mongo'
-        spring.data.mongodb.database: 'cloudio'
-        spring.influx.url: 'http://influx:8086'
