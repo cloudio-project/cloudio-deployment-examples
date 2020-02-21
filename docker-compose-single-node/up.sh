@@ -18,5 +18,8 @@ export CA_KEY=$(<certificates/ca.key)
 export SERVER_CERT=$(<certificates/server.cer)
 export SERVER_KEY=$(<certificates/server.key)
 
+# Ensure that all images are up-to-date.
+docker-compose pull
+
 # Start application stack.
 docker-compose up -d
