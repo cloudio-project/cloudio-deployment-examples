@@ -1,0 +1,14 @@
+
+# Created by https://www.gitignore.io/api/certificates
+# Edit at https://www.gitignore.io/?templates=certificates
+
+### certificates ###
+*.pem
+*.key
+*.crt
+*.priv
+*.p12
+*.cer
+*jks
+
+# End of https://www.gitignore.io/api/certificates
