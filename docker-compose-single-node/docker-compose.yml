@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   rabbit:
-    image: cloudio/cloudio-rabbitmq:latest
+    image: cloudio/cloudio-rabbitmq:3.7.23-1
     ports:
     - "8883:8883"
     - "5671:5671"
@@ -12,10 +12,10 @@ services:
       SERVER_KEY: ${SERVER_KEY}
 
   influx:
-    image: influxdb:latest
+    image: influxdb:1.5
 
   mongo:
-    image: mongo:latest
+    image: mongo:3.6
 
   services:
       image: cloudio/cloudio-services:0.2.0-SNAPSHOT
