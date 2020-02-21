@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  rabbit:
+    image: cloudio/cloudio-rabbitmq:3.7.23-1
+    ports:
+    - "8883:8883"
+    - "5671:5671"
+    environment:
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD}
+      CA_CERT: ${CA_CERT}
+      SERVER_CERT: ${SERVER_CERT}
+      SERVER_KEY: ${SERVER_KEY}
+
+  influx:
+    image: influxdb:1.5
+    volumes:
+      - $PWD/data/influx:/var/lib/influxdb
+
+  mongo:
+    image: mongo:3.6
+    volumes:
+      - $PWD/data/mongo:/data/db
+
+  services:
+      image: cloudio/cloudio-services:0.2.0-SNAPSHOT
+      ports:
+      - "80:8080"
+      links:
+      - rabbit
+      - influx
+      - mongo
+      volumes:
+      - $PWD/certificates:/etc/cloudio
+      environment:
+        spring.rabbitmq.ssl.key-store: 'file:/etc/cloudio/cloudio_services.p12'
+        spring.rabbitmq.ssl.trust-store: 'file:/etc/cloudio/ca.jks'
+        spring.rabbitmq.ssl.trust-store-password: 'cloudioDEV'
+        cloudio.cert-manager.caCertificate: ${CA_CERT}
+        cloudio.cert-manager.caPrivateKey: ${CA_KEY}

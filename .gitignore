@@ -11,8 +11,17 @@
 *.cer
 *jks
 
+# End of https://www.gitignore.io/api/certificates
+
 ### hidden files ###
 .*
-!/.gitignore
 
-# End of https://www.gitignore.io/api/certificates
+### InfluxDB data
+**/data/influx/**
+
+### MongoDB data
+**/data/mongo/**
+
+### Never ignore these
+!/.gitignore
+!.gitkeep
