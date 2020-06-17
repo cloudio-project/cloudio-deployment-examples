@@ -1,7 +1,7 @@
 version: '3.7'
 services:
   rabbit:
-    image: cloudio/cloudio-rabbitmq:3.7.23-1
+    image: cloudio/cloudio-rabbitmq:3.7.26-1
     ports:
     - "8883:8883"
     - "5671:5671"
