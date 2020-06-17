@@ -19,6 +19,8 @@ and is perfectly fine for a single node deployment but it might not be well adap
   As all services are deployed as Docker containers, obviously Docker is required.
 - **docker-compose**
   The `docker-compose` is bundled with the Docker installer on some platforms, for those where this is not the case, `docker-compose` has to be installed.
+- **Java keytool**
+  The keytool utility from the JDK is required. We propose to install `openjdk-11-jre-headless` which is quite small for a Java installation.
 
 ## How to run
 
