@@ -37,3 +37,4 @@ services:
         spring.rabbitmq.ssl.trust-store-password: 'cloudioDEV'
         cloudio.cert-manager.caCertificate: ${CA_CERT}
         cloudio.cert-manager.caPrivateKey: ${CA_KEY}
+      restart: unless-stopped
