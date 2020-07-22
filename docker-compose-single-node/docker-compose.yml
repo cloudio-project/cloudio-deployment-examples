@@ -10,12 +10,30 @@ services:
       CA_CERT: ${CA_CERT}
       SERVER_CERT: ${SERVER_CERT}
       SERVER_KEY: ${SERVER_KEY}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+        compress: "true"
 
   influx:
     image: influxdb:1.5
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+        compress: "true"
 
   mongo:
     image: mongo:3.6
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "10"
+        compress: "true"
 
   services:
       image: cloudio/cloudio-services:0.2.0-SNAPSHOT
@@ -34,3 +52,9 @@ services:
         cloudio.cert-manager.caCertificate: ${CA_CERT}
         cloudio.cert-manager.caPrivateKey: ${CA_KEY}
       restart: unless-stopped
+      logging:
+        driver: "json-file"
+        options:
+          max-size: "10m"
+          max-file: "10"
+          compress: "true"
