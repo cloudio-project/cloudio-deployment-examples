@@ -5,11 +5,16 @@ services:
     ports:
     - "8883:8883"
     - "5671:5671"
+
+    # Uncomment in order to enable RabbitMQ admin HTTP access.
+    #- "15672:15672"
+
     environment:
       ADMIN_PASSWORD: ${ADMIN_PASSWORD}
       CA_CERT: ${CA_CERT}
       SERVER_CERT: ${SERVER_CERT}
       SERVER_KEY: ${SERVER_KEY}
+    restart: unless-stopped
     logging:
       driver: "json-file"
       options:
@@ -18,7 +23,13 @@ services:
         compress: "true"
 
   influx:
-    image: influxdb:1.5
+    image: influxdb:1.5-alpine
+
+    # Uncomment in order to allow direct access to InfluxDB. DO NOT EXPOSE PUBLIC, Influx does not use authentication!
+    #ports:
+    #- "8086:8086"
+
+    restart: unless-stopped
     logging:
       driver: "json-file"
       options:
@@ -26,8 +37,18 @@ services:
         max-file: "10"
         compress: "true"
 
-  mongo:
-    image: mongo:3.6
+  database:
+    image: postgres:12.2-alpine
+
+    # Uncomment in order to allow direct access to PostgreSQL database.
+    #ports:
+    #- "5432:5432"
+
+    environment:
+      POSTGRES_USER: cloudio
+      POSTGRES_DB: cloudio
+      POSTGRES_PASSWORD: ${ADMIN_PASSWORD}
+    restart: unless-stopped
     logging:
       driver: "json-file"
       options:
@@ -42,15 +63,26 @@ services:
       links:
       - rabbit
       - influx
-      - mongo
+      - database
       volumes:
-      - "./certificates:/etc/cloudio"
+      - $PWD/certificates:/etc/cloudio
       environment:
+        # Certificate manager configuration.
+        cloudio.cert-manager.caCertificate: ${CA_CERT}
+        cloudio.cert-manager.caPrivateKey: ${CA_KEY}
+
+        # AMQP client.
         spring.rabbitmq.ssl.key-store: 'file:/etc/cloudio/cloudio_services.p12'
         spring.rabbitmq.ssl.trust-store: 'file:/etc/cloudio/ca.jks'
         spring.rabbitmq.ssl.trust-store-password: 'cloudioDEV'
-        cloudio.cert-manager.caCertificate: ${CA_CERT}
-        cloudio.cert-manager.caPrivateKey: ${CA_KEY}
+
+        # PostgreSQL.
+        spring.datasource.password: ${ADMIN_PASSWORD}
+        jpa.hibernate.ddl-auto: update
+
+        # Log level.
+        logging.level.root: warn
+
       restart: unless-stopped
       logging:
         driver: "json-file"
