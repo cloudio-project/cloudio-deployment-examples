@@ -21,5 +21,11 @@ export SERVER_KEY=$(<certificates/server.key)
 # Ensure that all images are up-to-date.
 docker-compose pull
 
-# Start application stack.
-docker-compose up -d
+# Start application stack without services themselves.
+docker-compose up -d rabbit influx database
+
+# Wait a moment before starting services to avoid errors because AMQP broker is not ready yet.
+sleep 16
+
+# Start services.
+docker-compose up -d services
